@@ -5,6 +5,15 @@ import random
 # ==========================================
 # 1. THE KALMAN FILTER
 # ==========================================
+MASS_WET = 1.275        # kg (Start mass)
+MASS_MOTOR_EMPTY = 0.138 # kg
+MASS_MOTOR_FULL = 0.204  # kg
+PROPELLANT_MASS = MASS_MOTOR_FULL - MASS_MOTOR_EMPTY # 0.066 kg
+BURN_TIME = 1.94        # Seconds
+DIAMETER = 0.078        # Meters (78mm)
+AREA = np.pi * (DIAMETER/2)**2 
+CD = 0.55               # Estimated Drag Coefficient to match 308m apogee
+
 class RocketKalman:
     def __init__(self):
         self.altitude = 0.0
@@ -143,6 +152,11 @@ while current_time <= total_time:
         
     current_time += dt
 
+print(f"Simulating Flight: {MASS_WET}kg Rocket, {BURN_TIME}s burn...")
+print(f"Simulation Complete.")
+print(f"Max True Altitude: {max(true_alt_data):.2f} m")
+print(f"Max True Velocity: {max(true_vel_data):.2f} m/s")
+print(f"Max True Accel:    {max(true_accel_data):.2f} m/s^2")
 # ==========================================
 # 4. PLOTTING - WINDOW 1 (FUSION)
 # ==========================================
